@@ -114,6 +114,8 @@ def run_detection():
     ax.set_ylabel("Cheat Probability")
     
     while True:
+        if not head_pose.cap.isOpened():  # Check if the camera is not opened
+            break  # Break the loop if the camera is closed
         YDATA.pop(0)
         YDATA.append(PERCENTAGE_CHEAT)
         line.set_xdata(XDATA)
@@ -122,6 +124,9 @@ def run_detection():
         fig.canvas.flush_events()
         time.sleep(1/5)
         process()
+    
+    # Close the figure before destroying the Tkinter window
+    plt.close(fig)
 
 @app.route('/')
 def index():

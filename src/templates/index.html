@@ -5,20 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sound Analysis</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .start-exam-box {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .start-exam-btn, .report-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        /* Center align the login form */
+        .login-form-container {
+            text-align: center;
+        }
+        .login-form-container form {
+            display: inline-block;
+            text-align: left; /* Align form elements to the left */
+        }
+        .login-form-container label,
+        .login-form-container input {
+            display: block;
+            margin: 0 auto; /* Center align */
+        }
+        .login-form-container input[type="text"],
+        .login-form-container input[type="password"] {
+            width: 200px; /* Set width for input fields */
+        }
+        .login-form-container button {
+            display: block;
+            margin: 20px auto; /* Center align */
+        }
+    </style>
 </head>
 <body>
-    <h1>E Proctoring System</h1>
-    <div id="sound_amplitude_data"></div>
+    <nav>
+        <div class="logo">E-nvigilator</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Login</a>
+        </div>
+    </nav>
 
-    <h2>Login</h2>
-    <form id="loginForm" action="/login" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
+    <div class="start-exam-box">
+        <h2>Start Exam</h2>
+        <p>Please login to start the exam.</p>
+    </div>
+
+    <div class="login-form-container">
+        <form id="loginForm" action="/login" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="start-exam-btn">Login</button>
+        </form>
         
-        <label for="password">PID:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <button type="submit">Login</button>
-    </form>
+        <a href="/report" class="report-btn">View Report</a>
+    </div>
 </body>
 </html>

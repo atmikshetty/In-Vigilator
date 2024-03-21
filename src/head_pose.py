@@ -8,6 +8,8 @@ import threading as th
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+cap = cv2.VideoCapture(0)
+
 X_AXIS_CHEAT = 0
 Y_AXIS_CHEAT = 0
 
@@ -20,11 +22,12 @@ def handle_disconnect():
     print('Client disconnected')
 
 def pose():
-    global X_AXIS_CHEAT, Y_AXIS_CHEAT
+    global X_AXIS_CHEAT, Y_AXIS_CHEAT, cap
+    success, image = cap.read()
 
     mp_face_mesh = mp.solutions.face_mesh
     face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence=0.5)
-    cap = cv2.VideoCapture(0)
+    
 
     while cap.isOpened():
         success, image = cap.read()
@@ -75,13 +78,25 @@ def pose():
             break
 
     cap.release()
+
+# This function should be called from the main thread
+def close_windows():
     cv2.destroyAllWindows()
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print('Client disconnected')
+
 if __name__ == '__main__':
     t1 = th.Thread(target=pose)
     t1.start()
     socketio.run(app)
+    close_windows()
