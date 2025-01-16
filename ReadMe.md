@@ -1,4 +1,6 @@
-# E Proctoring System built using Mediapipe and Flask
+# E Proctoring System
+
+Technologies used: Python, Flask, Mediapipe, SMTP, PostgreSQL
 
 To run the application using Docker, run the following command:
 
